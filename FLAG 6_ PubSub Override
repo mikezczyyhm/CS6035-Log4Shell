@@ -1,0 +1,22 @@
+FLAG 6: PubSub Override (20 pts)
+Make sure you have gone through the Setup and Intro sections.
+
+If you haven’t already, run the start script in the home directory of log4j user, start the container with the start script:
+
+  ./StartContainer.sh
+
+For this flag, we will exploit a previous endpoint that publishes updates to a topic on the server.
+
+  curl 'http://localhost:8080/rest/users/user/updateuser' -H 'GATECH_ID:123456789' -H 'Content-Type:application/json' -H 'X-UserName:rcoleman8' --data-raw '{"id": 1,"name": "User Name","profession": "User Profession"}'
+
+You have caught wind that the service reads from a properties file.
+
+For this exploit, you will use the log4j exploit to overwrite the “config.properties” file saved in the root directory of the application. This properties file contains a topic that the application will publish a message to when updateUser call is made (the application is also subscribed to this topic as you can see in the logs).
+
+You will need to trick the application into publishing a message to a different topic with your GATECH_ID as the account number in order to generate a valid flag.
+
+Upon success, you should see your output similar to that below: alt text
+
+Hint: Look through the cs6035.log to find clues about what this other topic could be.
+
+Your flag could be invalid if you have not sent your GATECH_ID appropriately in the published message.

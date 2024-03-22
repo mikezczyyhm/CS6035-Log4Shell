@@ -1,0 +1,17 @@
+Flag 1: Environment Echo (10 pts)
+Make sure you have gone through the Setup and Intro sections.
+
+If you haven’t already, run the start script in the home directory of log4j user, start the container with the start script:
+
+  ./StartContainer.sh
+
+The endpoint for this exploit can be called and inspected via:
+
+curl 'http://localhost:8080/rest/users/ping' -H 'GATECH_ID:123456789' -H 'Accept:application/json'
+
+Now that you have seen how to check environment variables, run a lookup for ADMIN_PASSWORD which stores your flag for this exercise. If successful, you should see the below output: alt text
+
+Add this flag (Congratulations! Your flag1 is: ____) to your project_log4shell.json file.
+
+NOTE: You do not need to use Java code, ldap, python server, etc to get this flag.
+

@@ -1,0 +1,29 @@
+FLAG 3: Bypass Authentication (15 pts)
+Make sure you have gone through the Setup and Intro sections.
+
+If you haven’t already, run the start script in the home directory of log4j user, start the container with the start script:
+
+  ./StartContainer.sh
+
+Now that you have gotten familiar with this environment and exploit, let’s try for another, more involved flag. We will try exploiting another URI:
+
+http://localhost:8080/rest/users/userlist
+
+This endpoint will deliver a list of valid users a program can choose from. It uses a very weak form of authentication that verifies a user is permitted by validating their user id that they send through the “X-UserName” header field.
+
+The goal here is to use your gatech id number in the “X-UserName” header (in addition to the GATECH_ID header) and have the application validate successfully. Example:
+
+-H 'X-UserName:123456789'
+
+First Run:
+
+  curl 'http://localhost:8080/rest/users/userlist' -H 'GATECH_ID:123456789' -H 'Accept:application/json' -H   'X-UserName:rcoleman8'
+
+and inspect the logged output. See if you can find anything that gives you a hint about how to exploit it/what you need to do to bypass the authentication.
+
+Update Exploit.java to send a malicious payload that will bypass the endpoint’s validation by sending your gatech id in the ‘X-Username’ header. How you will bypass authentication can be found by analyzing the applications logged output. Follow the steps in the SETUP/INTRO section to run your exploit.
+
+Upon success, you will see the output below, where the blacked out AuthorizedUsers is your UserId and your flag is right below it.. alt text
+
+Hint: Someone might have tried to roll their own patch and tried to deny requests containing malicious string patterns.
+*** **IF THIS FLAG COMES OUT BLANK, Restart container by running the stopContainer and startContainer scripts in the home directory of the log4j user. *****

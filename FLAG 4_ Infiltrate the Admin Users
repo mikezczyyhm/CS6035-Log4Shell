@@ -1,0 +1,26 @@
+FLAG 4: Infiltrate the Admin Users (20 pts)
+Make sure you have gone through the Setup and Intro sections.
+
+If you haven’t already, run the start script in the home directory of log4j user, start the container with the start script:
+
+  ./StartContainer.sh
+
+You have caught wind that this service caches database authorized users’ data in a file on the file system. Other applications use this service to get users’ data to cache and allow anyone who is an authorized user to access them. You understand how terrible of an idea this is and realize you are going to make them pay for dumb ideas.
+
+For this flag, you are going to bypass authentication (run Flag 3 again) and then UPDATE the UsersList.txt on the server to add your GaTech student Id to replace one of the users’ names. Do not delete any of the users as the service checks to make sure that they are all there and you do not want to get caught. You should also keep the user’s id you overwrite intact. For example, if you decide you want to overwrite user(1,”Tim Cook”,”CEO”), it should be updated to
+user(1,”your_gatech_id”,”CEO”).
+
+If you haven’t already, run the start script in the home directory of log4j user, start the container with the start script:
+
+  sudo ./startContainer.sh
+
+Run:
+
+  curl 'http://localhost:8080/rest/users/user/?userId=1' -H 'GATECH_ID:123456789' -H 'X-UserName:rcoleman8' 
+
+and inspect the logged output. See if you can find anything that gives you a hint about how to exploit it/what you need to do to bypass the authentication.
+
+If successful, your flag will be stored in the response value object’s name like the screenshot below: alt text
+
+Hint: You might need to perform a 2 step attack to get this flag. You can use 2 LDAPs and 2 Java Files to acheive this but it is not required.
+*** **IF THIS FLAG COMES OUT BLANK, Restart container by running the stopContainer and startContainer scripts in the home directory of the log4j user. *****
